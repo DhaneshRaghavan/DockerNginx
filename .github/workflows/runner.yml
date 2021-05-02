@@ -5,6 +5,12 @@ on:
     branches: [workflow-check]
 
 jobs:
+  Combile:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Lint Check
+        run: docker run --rm -i hadolint/hadolint < Dockerfile
   Build:
     runs-on: ubuntu-20.04
     steps:
