@@ -34,4 +34,4 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: dockernginx
-        run: docker push docker_nginx:${{ env.VERSION }}.${{ env.BUILD_NUMBER }}
+        run: docker push  260199123017.dkr.ecr.ap-south-1.amazonaws.com/docker_nginx:${{ env.VERSION }}.${{ env.BUILD_NUMBER }}
