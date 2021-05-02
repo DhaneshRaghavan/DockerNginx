@@ -20,7 +20,7 @@ jobs:
       - name: Build Image
         run: |
           VERSION=$(cat ./version.sh)
-          docker build . --file Dockerfile --tag docker_nginx:v$VERSION.${{ env.BUILD_NUMBER }}
+          docker build . --file Dockerfile --tag docker_nginx:$VERSION.${{ env.BUILD_NUMBER }}
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
