@@ -26,12 +26,12 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2
+          aws-region: ap-south-1
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-      - name: Tag, and push image to Amazon ECR
+      - name: Push image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: docker_nginx
-        run: docker push  260199123017.dkr.ecr.ap-south-1.amazonaws.com/docker_nginx:${{ env.VERSION }}.${{ env.BUILD_NUMBER }}
+        run: docker push  $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.VERSION }}.${{ env.BUILD_NUMBER }}
