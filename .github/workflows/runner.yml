@@ -7,7 +7,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-20.04
-
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -34,6 +33,5 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: dockernginx
-          #IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:v$VERSION.${{ env.BUILD_NUMBER }}
+          docker push docker_nginx:$VERSION.${{ env.BUILD_NUMBER }}
