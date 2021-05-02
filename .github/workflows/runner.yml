@@ -5,7 +5,7 @@ on:
     branches: [workflow-check]
 
 jobs:
-  build:
+  Build:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -15,11 +15,12 @@ jobs:
       - name : Set output vars
         id: vars  
         run: |
-            echo BUILD_NUMBER=$(date '+%Y%H%M%S') >> $GITHUB_ENV 
+            echo BUILD_NUMBER=$(date '+%Y%H%M%S') >> $GITHUB_ENV
+            echo VERSION=$(cat ./version.sh) >> $GITHUB_ENV
       - name: Build Image
         run: |
           VERSION=$(cat ./version.sh)
-          docker build . --file Dockerfile --tag docker_nginx:$VERSION.${{ env.BUILD_NUMBER }}
+          docker build . --file Dockerfile --tag docker_nginx:${{ env.VERSION }}.${{ env.BUILD_NUMBER }}
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -33,5 +34,4 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: dockernginx
-        run: |
-          docker push docker_nginx:$VERSION.${{ env.BUILD_NUMBER }}
+        run: docker push docker_nginx:${{ env.VERSION }}.${{ env.BUILD_NUMBER }}
