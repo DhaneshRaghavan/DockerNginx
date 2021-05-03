@@ -44,6 +44,8 @@ jobs:
         run: docker push  $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.VERSION }}.${{ env.BUILD_NUMBER }}
       - name: Add tag
         run: |
+          git config --local user.email "github-actions@alation.com"
+          git config --local user.name "github-actions"
           git tag -a ${{ env.VERSION }}.${{ env.BUILD_NUMBER }}
           git push origin --tags 
     
